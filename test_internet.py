@@ -14,5 +14,5 @@ def internet(host="8.8.8.8", port=53, timeout=3):
         print(ex)
         return False
 
-internet()
+print internet()
 
