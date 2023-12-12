@@ -47,9 +47,9 @@ def supaping(host):
     ping_result = 0
     cmdtxt = subprocess.Popen(["/bin/ping", "-c5", "-w100", host], stdout=subprocess.PIPE).stdout.read()
     if "ttl" in cmdtxt:
-        lines = res.split("\n")
-        line = lines[9]
-        avgtime = line.split("=")[1].split("/")[1]
+        cmdlines = cmdtxt.split("\n")
+        cmdline = cmdlines[9]
+        avgtime = cmdline.split("=")[1].split("/")[1]
         ping_result = avgtime
     else:
         ping_result = 0
