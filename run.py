@@ -4,7 +4,7 @@ import time
 
 #from pythonping import ping
 
-
+from ping3 import ping, verbose_ping
 
 
 def router_on():
@@ -50,7 +50,7 @@ def internet(host="8.8.8.8", port=53, timeout=3):
 #main
 
 
-print("yo")
+print(ping('google.ca'))
 
 
 #router_on()
