@@ -46,6 +46,7 @@ import subprocess
 def supaping(host):
     ping_result = 0
     cmdtxt = subprocess.Popen(["/bin/ping", "-c5", "-w100", host], stdout=subprocess.PIPE).stdout.read()
+    print(cmdtxt)
     if "ttl" in cmdtxt:
         cmdlines = cmdtxt.split("\n")
         cmdline = cmdlines[9]
