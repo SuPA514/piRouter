@@ -49,14 +49,12 @@ def internet(host="8.8.8.8", port=53, timeout=3):
 #main
 print("------------------------------------")
 
-import pyping
+#import pyping
 
-response = pyping.ping('google.ca')
+#response = pyping.ping('google.ca')
 
-if response.ret_code == 0:
-    print("reachable")
-else:
-    print("unreachable")
+import subprocess
+ping_response = subprocess.Popen(["/bin/ping", "-c1", "-w100", "google.ca"], stdout=subprocess.PIPE).stdout.read()
 
 #router_on()
 #time.sleep(1)
