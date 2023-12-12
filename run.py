@@ -50,7 +50,7 @@ def internet(host="8.8.8.8", port=53, timeout=3):
 #main
 
 
-
+print("yo")
 
 
 #router_on()
