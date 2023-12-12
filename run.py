@@ -50,7 +50,7 @@ def internet(host="8.8.8.8", port=53, timeout=3):
 #main
 
 
-ping3.ping('google.ca')
+ping3.ping('google.ca',ttl=3)
 
 
 #router_on()
