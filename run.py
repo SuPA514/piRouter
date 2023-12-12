@@ -4,8 +4,7 @@ import time
 
 #from pythonping import ping
 
-from ping3 import ping, verbose_ping
-
+import subprocess
 
 def router_on():
     GPIO.setwarnings(False)
@@ -49,9 +48,8 @@ def internet(host="8.8.8.8", port=53, timeout=3):
 
 #main
 
-
-ping3.ping('google.ca',ttl=3)
-
+ping_response = subprocess.Popen(["/bin/ping", "-c1", "-w100", "192.168.0.1"], stdout=subprocess.PIPE).stdout.read()
+print(ping_response)
 
 #router_on()
 #time.sleep(1)
