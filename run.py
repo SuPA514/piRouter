@@ -62,7 +62,7 @@ if "ttl" in res:
     print "success"
     lines = res.split("\n")
     line = lines[9]
-    avgtime = line.split("=").split("/")[1]
+    avgtime = line.split("=")[1].split("/")[1]
     print(avgtime)
 
 else:
