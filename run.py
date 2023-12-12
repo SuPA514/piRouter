@@ -54,7 +54,7 @@ print("------------------------------------")
 #response = pyping.ping('google.ca')
 
 import subprocess
-ping_response = subprocess.Popen(["/bin/ping", "-c1", "-w100", "google.ca"], stdout=subprocess.PIPE).stdout.read()
+ping_response = subprocess.Popen(["/bin/ping", "-c5", "-w100", "google.ca"], stdout=subprocess.PIPE).stdout.read()
 
 print(ping_response)
 
