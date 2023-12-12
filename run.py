@@ -49,38 +49,21 @@ def internet(host="8.8.8.8", port=53, timeout=3):
 #main
 print("------------------------------------")
 
-def ping(host,n = 0):
-    if(n>0):
-        avg = 0
-        for i in range (n):
-            avg += ping(host)
-        avg = avg/n
-    # Create a MultiPing object to test hosts / addresses
-    mp = MultiPing([host])
-
-    # Send the pings to those addresses
-    mp.send()
-
-    # With a 1 second timout, wait for responses (may return sooner if all
-    # results are received).
-    responses, no_responses = mp.receive(1)
+import platform,subproccess,re
+def Ping(hostname,timeout):
+    if platform.system() == "Windows":
+        command="ping "+hostname+" -n 1 -w "+str(timeout*1000)
+    else:
+        command="ping -i "+str(timeout)+" -c 1 " + hostname
+    proccess = subprocess.Popen(command, stdout=subprocess.PIPE)
+    matches=re.match('.*time=([0-9]+)ms.*', proccess.stdout.read(),re.DOTALL)
+    if matches:
+        return matches.group(1)
+    else: 
+        return False
 
 
-    for addr, rtt in responses.items():
-        RTT = rtt
-
-
-    if no_responses:
-        # Sending pings once more, but just to those addresses that have not
-        # responded, yet.
-        mp.send()
-        responses, no_responses = mp.receive(1)
-        RTT = -1
-
-    return RTT
-
-
-ping("google.ca")
+Ping("google.ca")
 #router_on()
 #time.sleep(1)
 #router_off()
