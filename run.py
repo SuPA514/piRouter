@@ -2,7 +2,7 @@
 import RPi.GPIO as GPIO
 import time
 
-from ping3 import ping, verbose_ping
+from pythonping import ping
 
 
 
@@ -34,8 +34,18 @@ def internet(host="8.8.8.8", port=53, timeout=3):
         print(ex)
         return False
 
+def ping_host(host):
+    ping_result = ping(target=host, count=10, timeout=2)
 
-ping('google.ca')
+    return {
+        'host': host,
+        'avg_latency': ping_result.rtt_avg_ms,
+        'min_latency': ping_result.rtt_min_ms,
+        'max_latency': ping_result.rtt_max_ms,
+        'packet_loss': ping_result.packet_loss
+    }
+
+print(ping_host('google.ca'))
 
 #main
 
