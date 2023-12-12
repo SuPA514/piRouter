@@ -64,7 +64,7 @@ def Ping(hostname,timeout):
     else: 
         return False
 
-Ping("google.ca")
+Ping("google.ca",3)
 #router_on()
 #time.sleep(1)
 #router_off()
