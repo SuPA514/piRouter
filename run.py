@@ -56,6 +56,8 @@ print("------------------------------------")
 import subprocess
 ping_response = subprocess.Popen(["/bin/ping", "-c1", "-w100", "google.ca"], stdout=subprocess.PIPE).stdout.read()
 
+print(ping_response)
+
 #router_on()
 #time.sleep(1)
 #router_off()
