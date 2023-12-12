@@ -48,7 +48,7 @@ def internet(host="8.8.8.8", port=53, timeout=3):
 
 #main
 
-ping_response = subprocess.Popen(["/bin/ping", "-c1", "-w100", "192.168.0.1"], stdout=subprocess.PIPE).stdout.read()
+ping_response = subprocess.Popen(["/bin/ping", "-c1", "-w3", "google.ca"], stdout=subprocess.PIPE).stdout.read()
 print(ping_response)
 
 #router_on()
