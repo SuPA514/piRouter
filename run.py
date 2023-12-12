@@ -60,6 +60,9 @@ print(res)
 
 if "ttl" in res:
     print "success"
+    lines = res.split("\n")
+    print(lines[1])
+
 else:
     print "falied"
 
