@@ -33,41 +33,30 @@ def internet(host="8.8.8.8", port=53, timeout=3):
         print(ex)
         return False
 
-#def ping_host(host):
-#    ping_result = ping(target=host, count=10, timeout=2)
-#
-#    return {
-#        'host': host,
-#        'avg_latency': ping_result.rtt_avg_ms,
-#        'min_latency': ping_result.rtt_min_ms,
-#        'max_latency': ping_result.rtt_max_ms,
-#        'packet_loss': ping_result.packet_loss
-#    }
 
-#print(ping_host('google.ca'))
 
 #main
 print("------------------------------------")
 
-#import pyping
-
-#response = pyping.ping('google.ca')
 
 import subprocess
-res = subprocess.Popen(["/bin/ping", "-c5", "-w100", "google.ca"], stdout=subprocess.PIPE).stdout.read()
 
-print(res)
 
-if "ttl" in res:
-    print "success"
-    lines = res.split("\n")
-    line = lines[9]
-    avgtime = line.split("=")[1].split("/")[1]
-    print(avgtime)
 
-else:
-    print "falied"
+def supaping(host):
+    ping_result = 0
+    cmdtxt = subprocess.Popen(["/bin/ping", "-c5", "-w100", host], stdout=subprocess.PIPE).stdout.read()
+    if "ttl" in cmdtxt:
+        lines = res.split("\n")
+        line = lines[9]
+        avgtime = line.split("=")[1].split("/")[1]
+        ping_result = avgtime
+    else:
+        ping_result = 0
+    return ping_result
 
+t = supaping("google.ca")
+print("ping result" + str(t))
 
 #router_on()
 #time.sleep(1)
