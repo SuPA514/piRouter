@@ -4,7 +4,7 @@ import time
 
 #from pythonping import ping
 
-import platform, subprocess
+from multiping import MultiPing
 
 def router_on():
     GPIO.setwarnings(False)
@@ -47,29 +47,37 @@ def internet(host="8.8.8.8", port=53, timeout=3):
 #print(ping_host('google.ca'))
 
 #main
-def ping(host_or_ip, packets=1, timeout=3):
-    ''' Calls system "ping" command, returns True if ping succeeds.
-    Required parameter: host_or_ip (str, address of host to ping)
-    Optional parameters: packets (int, number of retries), timeout (int, ms to wait for response)
-    Does not show any output, either as popup window or in command line.
-    Python 3.5+, Windows and Linux compatible
-    '''
-    # The ping command is the same for Windows and Linux, except for the "number of packets" flag.
-    if platform.system().lower() == 'windows':
-        command = ['ping', '-n', str(packets), '-w', str(timeout), host_or_ip]
-        # run parameters: capture output, discard error messages, do not show window
-        result = subprocess.run(command, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, creationflags=0x08000000)
-        # 0x0800000 is a windows-only Popen flag to specify that a new process will not create a window.
-        # On Python 3.7+, you can use a subprocess constant:
-        #   result = subprocess.run(command, capture_output=True, creationflags=subprocess.CREATE_NO_WINDOW)
-        # On windows 7+, ping returns 0 (ok) when host is not reachable; to be sure host is responding,
-        # we search the text "TTL=" on the command output. If it's there, the ping really had a response.
-        return result.returncode == 0 and b'TTL=' in result.stdout
-    else:
-        command = ['ping', '-c', str(packets), '-w', str(timeout), host_or_ip]
-        # run parameters: discard output and error messages
-        result = subprocess.run(command, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        return result.returncode == 0
+print("------------------------------------")
+
+def ping(host,n = 0):
+    if(n>0):
+        avg = 0
+        for i in range (n):
+            avg += ping(host)
+        avg = avg/n
+    # Create a MultiPing object to test hosts / addresses
+    mp = MultiPing([host])
+
+    # Send the pings to those addresses
+    mp.send()
+
+    # With a 1 second timout, wait for responses (may return sooner if all
+    # results are received).
+    responses, no_responses = mp.receive(1)
+
+
+    for addr, rtt in responses.items():
+        RTT = rtt
+
+
+    if no_responses:
+        # Sending pings once more, but just to those addresses that have not
+        # responded, yet.
+        mp.send()
+        responses, no_responses = mp.receive(1)
+        RTT = -1
+
+    return RTT
 
 
 ping("google.ca")
