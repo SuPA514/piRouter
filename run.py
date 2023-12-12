@@ -54,7 +54,7 @@ print("------------------------------------")
 #response = pyping.ping('google.ca')
 
 import subprocess
-res = subprocess.Popen(["/bin/ping", "-c5", "-w100", "czscczsgoogle.ca"], stdout=subprocess.PIPE).stdout.read()
+res = subprocess.Popen(["/bin/ping", "-c5", "-w100", "google.ca"], stdout=subprocess.PIPE).stdout.read()
 
 print(res)
 
@@ -62,7 +62,7 @@ if "ttl" in res:
     print "success"
 else:
     print "falied"
-    
+
 
 #router_on()
 #time.sleep(1)
