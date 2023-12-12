@@ -57,7 +57,7 @@ def supaping(host):
     return ping_result
 
 t = supaping("google.ca")
-print("ping result" + str(t))
+print("ping result: " + str(t))
 
 #router_on()
 #time.sleep(1)
